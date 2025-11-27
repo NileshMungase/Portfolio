@@ -1,9 +1,24 @@
 import { motion } from 'framer-motion';
 import { MessageCircle, Phone, Mail } from 'lucide-react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const FloatingContactButton = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isContactVisible, setIsContactVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const contactSection = document.querySelector('#contact');
+      if (contactSection) {
+        const rect = contactSection.getBoundingClientRect();
+        // Hide floating button when contact section is in viewport
+        setIsContactVisible(rect.top < window.innerHeight && rect.bottom > 0);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const contactOptions = [
     {
@@ -19,6 +34,9 @@ const FloatingContactButton = () => {
       href: 'https://wa.me/917447847064',
     },
   ];
+
+  // Hide button when contact section is visible
+  if (isContactVisible) return null;
 
   return (
     <motion.div className="fixed bottom-8 right-8 z-40">
