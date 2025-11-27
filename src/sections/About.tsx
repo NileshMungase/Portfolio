@@ -64,7 +64,7 @@ const About = () => {
 
           <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400 mb-4">
             <MapPin size={20} className="text-blue-600 dark:text-blue-400" />
-            <span>Pune, Maharashtra - 414604</span>
+            <span>Pune, Maharashtra - 411052</span>
           </div>
 
           <p className="text-gray-600 dark:text-gray-400 mb-4 leading-relaxed">

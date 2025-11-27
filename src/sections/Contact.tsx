@@ -55,7 +55,7 @@ const Contact = () => {
     {
       icon: <MapPin size={24} />,
       label: 'Location',
-      value: 'Pune, Maharashtra - 414604',
+      value: 'Pune, Maharashtra - 411052',
     },
   ];
 
