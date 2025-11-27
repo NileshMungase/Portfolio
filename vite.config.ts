@@ -6,29 +6,43 @@ export default defineConfig({
   plugins: [react()],
   optimizeDeps: {
     exclude: ['lucide-react'],
+    include: ['react', 'react-dom', 'framer-motion'],
+    esbuildOptions: {
+      target: 'es2020',
+    },
   },
   build: {
-    // Optimize bundle size
+    // Aggressive minification
     minify: 'terser',
     terserOptions: {
       compress: {
         drop_console: true,
         drop_debugger: true,
+        passes: 2,
       },
+      mangle: true,
+      format: { comments: false },
     },
     // Code splitting for better caching
     rollupOptions: {
       output: {
-        manualChunks: {
-          'vendor': ['react', 'react-dom'],
-          'animations': ['framer-motion'],
-          'form': ['react-hook-form'],
+        manualChunks: (id) => {
+          if (id.includes('node_modules/react')) return 'vendor-react';
+          if (id.includes('node_modules/framer-motion')) return 'animations';
+          if (id.includes('node_modules/react-hook-form')) return 'form';
+          if (id.includes('node_modules')) return 'vendor';
         },
       },
     },
+    // Optimize for faster loading
+    cssCodeSplit: true,
+    // Inline assets smaller than 4KB
+    assetsInlineLimit: 4096,
     // Chunk size warnings
-    chunkSizeWarningLimit: 600,
-    // Enable source maps for production debugging
+    chunkSizeWarningLimit: 500,
+    // Disable source maps for production
     sourcemap: false,
+    // Reduce output noise
+    reportCompressedSize: false,
   },
 });

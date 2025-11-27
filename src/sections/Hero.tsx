@@ -1,11 +1,13 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowDown, Download } from 'lucide-react';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Button from '../components/Button';
 
 const Hero = () => {
   const ref = useRef(null);
   const { scrollY } = useScroll();
+  const [selectedWord, setSelectedWord] = useState<number | null>(null);
+  const [isHovering, setIsHovering] = useState(false);
   
   // Parallax effects for background elements
   const blurY = useTransform(scrollY, [0, 300], [0, 100]);
@@ -16,6 +18,14 @@ const Hero = () => {
   const handleScrollToContact = () => {
     const element = document.querySelector('#contact');
     element?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // Split main heading into words for animation
+  const mainHeading = ['Hi,', "I'm", 'Nilesh', 'Mungase'];
+  const subtitle = ['Java', 'Full', 'Stack', 'Developer'];
+
+  const handleWordClick = (index: number) => {
+    setSelectedWord(selectedWord === index ? null : index);
   };
 
   return (
@@ -44,25 +54,61 @@ const Hero = () => {
           transition={{ duration: 0.8 }}
         >
           <motion.h1
-              initial={{ opacity: 0, y: 20, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              transition={{ delay: 0.2, duration: 0.8 }}
-              className="text-5xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white"
-            >
-              Hi, I'm{' '}
-              <span className="gradient-text">
-                Nilesh Mungase
-              </span>
-            </motion.h1>
+            className="text-5xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white flex flex-wrap justify-center gap-2 md:gap-3 cursor-pointer"
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
+          >
+            {mainHeading.map((word, index) => (
+              <motion.span
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 + index * 0.1, duration: 0.8 }}
+                onClick={() => handleWordClick(index)}
+                whileHover={{ scale: 1.1, color: '#06b6d4' }}
+                whileTap={{ scale: 0.95 }}
+                className={`inline-block px-2 rounded transition-all ${
+                  selectedWord === index
+                    ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg'
+                    : isHovering
+                    ? 'text-cyan-600 dark:text-cyan-400'
+                    : ''
+                } ${index === 2 || index === 3 ? 'gradient-text' : ''}`}
+              >
+                {word}
+              </motion.span>
+            ))}
+          </motion.h1>
 
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-              className="text-2xl md:text-3xl text-gray-700 dark:text-gray-300 mb-4"
-            >
-              Java Full Stack Developer
-            </motion.h2>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.8 }}
+            className="text-2xl md:text-3xl text-gray-700 dark:text-gray-300 mb-4 flex flex-wrap justify-center gap-2 md:gap-3 cursor-pointer"
+            onMouseEnter={() => setIsHovering(true)}
+            onMouseLeave={() => setIsHovering(false)}
+          >
+            {subtitle.map((word, index) => (
+              <motion.span
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 + index * 0.1, duration: 0.8 }}
+                onClick={() => handleWordClick(index + 10)}
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className={`inline-block px-2 rounded transition-all ${
+                  selectedWord === index + 10
+                    ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white shadow-lg'
+                    : isHovering
+                    ? 'text-cyan-600 dark:text-cyan-400'
+                    : ''
+                }`}
+              >
+                {word}
+              </motion.span>
+            ))}
+          </motion.h2>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}

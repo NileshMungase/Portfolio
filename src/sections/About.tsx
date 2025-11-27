@@ -39,10 +39,12 @@ const About = () => {
           className="flex justify-center"
         >
           <div className="relative">
-            <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden">
+            <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700">
               <img
                 src="/images/profile.jpg"
                 alt="Nilesh Mungase"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
             </div>
