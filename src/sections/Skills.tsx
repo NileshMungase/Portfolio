@@ -122,16 +122,22 @@ const Skills = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.15 }}
+            whileHover={{ y: -8, boxShadow: '0 25px 50px rgba(59, 130, 246, 0.2)' }}
+            className="cursor-pointer"
           >
-            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-blue-900/20 p-6 border border-gray-100 dark:border-gray-700">
-              <div className="flex items-center gap-3 mb-6">
+            <div className="bg-white dark:bg-gray-800 rounded-xl shadow-lg dark:shadow-blue-900/20 p-6 border border-gray-100 dark:border-gray-700 hover:shadow-2xl dark:hover:shadow-blue-900/40 transition-all duration-300 h-full">
+              <motion.div
+                whileHover={{ scale: 1.1 }}
+                transition={{ duration: 0.3 }}
+                className="flex items-center gap-3 mb-6"
+              >
                 <div className={`w-14 h-14 bg-gradient-to-br ${category.color} rounded-lg flex items-center justify-center text-white`}>
                   {category.icon}
                 </div>
                 <h3 className="text-2xl font-bold text-gray-800 dark:text-white">
                   {category.title}
                 </h3>
-              </div>
+              </motion.div>
               <div className="space-y-4">
                 {category.skills.map((skill, skillIndex) => (
                   <SkillBar
@@ -173,7 +179,8 @@ const Skills = () => {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.6 + index * 0.08 }}
-              className="bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-lg p-4 text-center border border-blue-200 dark:border-blue-700/50 hover:shadow-md dark:hover:shadow-blue-900/20 transition-shadow"
+              whileHover={{ scale: 1.08, y: -5, boxShadow: '0 15px 30px rgba(59, 130, 246, 0.3)' }}
+              className="bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-lg p-4 text-center border border-blue-200 dark:border-blue-700/50 hover:shadow-md dark:hover:shadow-blue-900/20 transition-all duration-300 cursor-pointer"
             >
               <p className="font-semibold text-gray-700 dark:text-gray-200">{skill}</p>
             </motion.div>
