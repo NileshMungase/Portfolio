@@ -8,6 +8,7 @@ interface ButtonProps {
   className?: string;
   type?: 'button' | 'submit' | 'reset';
   href?: string;
+  disabled?: boolean;
 }
 
 const Button = ({
@@ -17,6 +18,7 @@ const Button = ({
   className = '',
   type = 'button',
   href,
+  disabled = false,
 }: ButtonProps) => {
   const baseStyles =
     'px-6 py-3 rounded-lg font-medium transition-all duration-300';
@@ -30,7 +32,8 @@ const Button = ({
       'border-2 border-blue-600 dark:border-blue-400 text-blue-600 dark:text-blue-400 hover:bg-blue-600 dark:hover:bg-blue-500 hover:text-white hover:scale-105 dark:hover:border-blue-500',
   };
 
-  const combinedClassName = `${baseStyles} ${variants[variant]} ${className}`;
+  const disabledStyles = 'opacity-50 cursor-not-allowed pointer-events-none';
+  const combinedClassName = `${baseStyles} ${variants[variant]} ${className} ${disabled ? disabledStyles : ''}`;
 
   if (href) {
     return (
@@ -51,8 +54,9 @@ const Button = ({
     <motion.button
       type={type}
       onClick={onClick}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      disabled={disabled}
+      whileHover={disabled ? {} : { scale: 1.05 }}
+      whileTap={disabled ? {} : { scale: 0.95 }}
       className={combinedClassName}
     >
       {children}

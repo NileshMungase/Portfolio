@@ -20,7 +20,7 @@ const Contact = () => {
     register,
     handleSubmit,
     reset,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useForm<FormData>();
 
   const onSubmit = async (data: FormData) => {
@@ -78,7 +78,7 @@ const Contact = () => {
             Get In <span className="gradient-text">Touch</span>
           </h2>
         </motion.div>
-        <motion.div 
+        <motion.div
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={{ once: true }}
@@ -226,9 +226,9 @@ const Contact = () => {
               whileHover={{ scale: isLoading ? 1 : 1.02 }}
               whileTap={{ scale: isLoading ? 1 : 0.98 }}
             >
-              <Button 
-                type="submit" 
-                variant="primary" 
+              <Button
+                type="submit"
+                variant="primary"
                 disabled={isLoading}
                 className="w-full flex items-center justify-center gap-2 disabled:opacity-70"
               >

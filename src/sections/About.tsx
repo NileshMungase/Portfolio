@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { GraduationCap, MapPin } from 'lucide-react';
 import SectionWrapper from '../components/SectionWrapper';
 import ResumeDownload from '../components/ResumeDownload';
+import profileImage from '../assets/profile.jpg';
 
 const About = () => {
   return (
@@ -41,7 +42,7 @@ const About = () => {
           <div className="relative">
             <div className="w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700">
               <img
-                src="/images/profile.jpg"
+                src={profileImage}
                 alt="Nilesh Mungase"
                 loading="lazy"
                 decoding="async"
